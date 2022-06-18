@@ -1,135 +1,141 @@
-from pstats import Stats
 import TEN_Script_1_Stat as ST
 import JAE_Script_2_EV as EV
 import math
 
-def ProceedOrExit():
-    Choose = int(input("\n Want to try again?? Choose [1] if YES and [0] if NO \nOPTION: "))
-    if Choose == 1: main()
-    elif Choose == 0: exit()
-    else:
-        print("INVALID IS INPUT!!!!!")
-        ProceedOrExit()
-    
 def main():
     print ("WELCOME TO POKEMON STAT AND EV CALCULATOR!!!!!!!")
+    print ("Kindly fill in the following:\n")
     while True:
         base = int(input("BASE HP: "))
         level = int(input("LEVEL: "))
-
-
         ev = int(input("EV must be [0-255]. \nEV: "))
-
         if ev >255:
             print("EV EXCEEDS!!!!!\n")
             main()
-
         iv = int(input("IV must be [0-31]. \nIV: "))
-
         if iv >31:
             print("IV EXCEEDS!!!\n")
             main()
-
         else:
-            print("Proceeding!!!!")
             break
-    
+
     while True:
-        Option = int(input("\nPokemon Calculator Type: \nType [0] if STAT Type and [1] if EV Type: \nOPTION: "))
+        print("\nType [0] if STAT Type and [1] if EV Type:")
+        Option = int(input("OPTION: "))
 
         if Option == 0:
-            print("\n CHOOSE OTHER STAT?? TYPE [1] IF YES AND [2] IF NO.")
-            take = int(input("\n CHOICE: "))
+            print("\n******************************STAT CALCULATOR******************************\n")
+            print("\n[1]Other Stat    [2]Proceed with the original stat")
+            take = int(input("CHOICE: "))
+
             if take == 1:
-                print ("\nOPTIONS: \n[1]ATTACK, [2]SPECIAL ATTACK, [3]DEFENSE, [4]SPECIAL DEFENSE, [5]SPEED")
-                tk = int(input("\n [STAT] What would you like to compute? "))
-                if tk == 1:
-                    name = 'ATTACK'
-                    tke = int(input("\n[1] for Beneficial or [2] for Hindering "))
-                    if tke == 1:
-                        nature = 1.1
+                print ("\n[a] ATTACK  [b] SPECIAL ATTACK  [c] DEFENSE  [d] SPECIAL DEFENSE  [e] SPEED")
+                tk = str(input("What would you like to compute? "))
 
-                    elif tke ==2:
-                        nature = 0.9
-                if tk == 2:
-                    name = 'SPECIAL ATTACK'
-                    tke = int(input("\n[1] for Beneficial or [2] for Hindering "))
-                    if tke == 1:
+                if tk == 'a':
+                    n = 'ATTACK'
+                    tke = str(input("\n[ben] Beneficial - [hin] Hindering \nCHOICE: "))
+                    if tke == 'ben':
+                        nme = 'BENEFICIAL'
                         nature = 1.1
-
-                    elif tke ==2:
+                    elif tke =='hin':
+                        nme = 'HINDERING'
                         nature = 0.9
 
-                if tk == 3:
-                    name = 'DEFENSE'
-                    tke = int(input("\n[1] for Beneficial or [2] for Hindering "))
-                    if tke == 1:
+                if tk == 'b':
+                    n = 'SPECIAL ATTACK'
+                    tke = str(input("\n[ben] Beneficial - [hin] Hindering \nCHOICE: "))
+                    if tke == 'ben':
+                        nme = 'BENEFICIAL'
                         nature = 1.1
-
-                    elif tke ==2:
+                    elif tke =='hin':
+                        nme = 'HINDERING'
                         nature = 0.9
 
-                if tk == 4:
-                    name = 'SPECIAL DEFENSE'
-                    tke = int(input("\n[1] for Beneficial or [2] for Hindering "))
-                    if tke == 1:
+                if tk == 'c':
+                    n = 'DEFENSE'
+                    tke = str(input("\n[ben] Beneficial - [hin] Hindering \nCHOICE: "))
+                    if tke == 'ben':
+                        nme = 'BENEFICIAL'
                         nature = 1.1
-
-                    elif tke ==2:
+                    elif tke =='hin':
+                        nme = 'HINDERING'
                         nature = 0.9
 
-                if tk == 5:
-                    name = 'SPEED'
-                    tke = int(input("\n[1] for Beneficial or [2] for Hindering "))
-                    if tke == 1:
+                if tk == 'd':
+                    n = 'SPECIAL DEFENSE'
+                    tke = str(input("\n[ben] Beneficial - [hin] Hindering \nCHOICE: "))
+                    if tke == 'ben':
+                        nme = 'BENEFICIAL'
                         nature = 1.1
+                    elif tke =='hin':
+                        nme = 'HINDERING'
+                        nature = 0.9
 
-                    elif tke ==2:
+                if tk == 'e':
+                    n = 'SPEED'
+                    tke = str(input("\n[ben] Beneficial - [hin] Hindering \nCHOICE: "))
+                    if tke == 'ben':
+                        nme = 'BENEFICIAL'
+                        nature = 1.1
+                    elif tke =='hin':
                         nature = 0.9
 
                 totalOtherStatComputation = ST.StatCalculate.OtherStat(base, iv, ev, level, nature)
                 if totalOtherStatComputation <=510:
-                    print("\nCALCULATING", name , "VALUE :", totalOtherStatComputation)
+                    print(nme , ": " , nature)
+                    print(n , "CALCULATION :", totalOtherStatComputation)
 
                 else:
-                    print("POKEMON's TOTAL EV EXCEEDS!!!!")
-                ProceedOrExit()
+                    print("TOTAL OTHER STAT EXCEEDS!!!!")
+                PE()
 
             elif take == 2:
                 ten = ST.StatCalculate.Health(base, iv, ev, level)
                 if ten <=510:
                     print("HP VALUE: ",ten)
                 else:
-                    print("POKEMONS's TOTAL STAT EXCEEDS!!!!!")                    
-                ProceedOrExit()
+                    print("TOTAL STAT EXCEEDS!!!!!")                    
+                PE()
 
             else:
                 print("INVALID INPUT!!!!!!!")
 
         elif Option == 1:
-            stat = int(input("STAT: "))
-            print("Choose [1] for Beneficial or [2] for Hindering")
-            Choice = int(input("\n Modifier:"))
-            if Choice == 1:
+            print("\n******************************EV CALCULATOR******************************\n")
+            stat = int(input("STAT: \n"))
+            print("[ben] Beneficial - [hin] Hindering")
+            Choice = str(input("\nModifier:"))
+            if Choice == 'ben':
+                name = 'BENEFICIAL'
                 modifier = 1.1
-            
-            elif Choice == 2:
+
+            elif Choice == 'hin':
                 modifier = 0.9
+                name = 'HINDERING'
 
             else:
                 print("INVALID INPUT!!!!")
 
             totalEVComputation = EV.EvCalculate.EVComputation(stat, modifier, level, base, iv, ev)
             if totalEVComputation <=510:
-                print("TOTAL EV: ", totalEVComputation)
-            
+                print(name ,": ", modifier , "\nTOTAL EV: ", totalEVComputation)
+
             else:
-                print("POKEMON's TOTAL EV ALREADY EXCEEDS!!!!!!!")
-            ProceedOrExit()
+                print("TOTAL EV ALREADY EXCEEDS!!!!!!!")
+            PE()
 
 
         else:
             print("INVALID INPUT!!!!!!!!!!!!")
 
+def PE():
+    Choose = int(input("\nWould you like to compute again?? \n[1] if YES - [0] if NO \nOPTION: "))
+    if Choose == 1: main()
+    elif Choose == 0: 
+        print ("\n\nThank you for using POKEMON STAT/EV CALCULATOR, SEE YAAAH")
+        exit()
+    else:
+        print("INVALID IS INPUT!!!!!")
+        PE()
 main()
-
